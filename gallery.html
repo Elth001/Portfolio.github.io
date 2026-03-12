@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
+    <title>ELth | Gallery 素材集</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Noto+Sans+JP:wght@300;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* =========================================
+           カラーテーマ定義 (CSS変数)
+           ========================================= */
+        :root {
+            color-scheme: light only;
+            --bg-color: #f0f9ff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --accent-color: #0ea5e9;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --orb-1: #bae6fd;
+            --orb-2: #7dd3fc;
+            --orb-3: #a78bfa;
+        }
+
+        [data-theme="white"] {
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --accent-color: #6366f1;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --orb-1: #e2e8f0;
+            --orb-2: #cbd5e1;
+            --orb-3: #94a3b8;
+        }
+
+        [data-theme="warm"] {
+            --bg-color: #fff7ed;
+            --text-main: #431407;
+            --text-sub: #78350f;
+            --accent-color: #f97316;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --orb-1: #ffedd5;
+            --orb-2: #fbcfe8;
+            --orb-3: #fed7aa;
+        }
+
+        /* 基本設定 */
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            letter-spacing: 0.05em;
+            word-break: keep-all;
+            /* 日本語の単語の途中での改行を防ぐ */
+            overflow-wrap: break-word;
+            /* 枠からはみ出る長い英単語などは折り返す */
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* 背景のアニメーションオーブ */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0.8;
+            transition: background 0.5s ease;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: var(--orb-1);
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: var(--orb-2);
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 40%;
+            width: 30vw;
+            height: 30vw;
+            background: var(--orb-3);
+            animation-delay: -2s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        /* グラスモーフィズム共通設定 */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-card {
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            transition: all 0.3s;
+        }
+
+        .glass-btn:hover,
+        .glass-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 画像ホバー */
+        .thumbnail-container {
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .thumbnail-img {
+            transition: transform 0.5s ease;
+        }
+
+        .glass-card:hover .thumbnail-img {
+            transform: scale(1.05);
+        }
+
+        /* モーダル */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            cursor: default;
+            position: relative;
+        }
+
+        .modal-content img,
+        .modal-content video {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.4);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 250;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-info {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 1.5rem;
+        }
+
+        .modal-info h4 {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-info p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* オーバーレイクリック可能化 */
+        .work-overlay {
+            cursor: pointer;
+        }
+
+        /* テキストカラー調整用ユーティリティ */
+        .text-sub {
+            color: var(--text-sub);
+        }
+
+        .text-accent {
+            color: var(--accent-color);
+        }
+
+        /* テーマ切り替えボタン */
+        .theme-switcher {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .theme-switcher {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                flex-direction: row;
+            }
+
+            .theme-btn {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* ギャラリー用Masonryレイアウト調整 */
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- 背景装飾 -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- テーマ切り替えスイッチャー -->
+    <div class="theme-switcher">
+        <button class="theme-btn bg-sky-200" onclick="setTheme('blue')" title="フレッシュブルー（推奨）"></button>
+        <button class="theme-btn bg-slate-200" onclick="setTheme('white')" title="クリーンホワイト"></button>
+        <button class="theme-btn bg-orange-200" onclick="setTheme('warm')" title="ウォームサンセット"></button>
+    </div>
+
+    <!-- Minimal Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b-0">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center relative">
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-accent transition hover:opacity-80">
+                <i class="fa-solid fa-arrow-left mr-2 text-lg"></i>ELth.
+            </a>
+            <div class="text-sm font-bold text-sub">
+                Materials Collection
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="pt-32 pb-12 relative z-10 text-center">
+        <div class="container mx-auto px-6">
+            <h1 class="font-black mb-4 leading-tight tracking-tight text-3xl md:text-5xl">
+                全実績・<span class="text-accent">素材集</span>
+            </h1>
+            <p class="text-sub font-medium max-w-2xl mx-auto text-sm md:text-base">
+                これまでに制作したサムネイル、ショート動画、UIデザインなどをギャラリー形式で一覧できます。画像をクリックすると詳細と制作意図が確認できます。
+            </p>
+
+            <!-- フィルター -->
+            <div class="flex justify-center gap-3 mt-10 flex-wrap">
+                <button class="filter-btn glass-btn active px-6 py-2 rounded-full text-sm font-bold"
+                    onclick="filterWorks('all')">すべて</button>
+                <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
+                    onclick="filterWorks('thumb')">サムネイル</button>
+                <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
+                    onclick="filterWorks('movie')">ショート動画</button>
+                <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
+                    onclick="filterWorks('design')">デザイン</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery Section (Masonry) -->
+    <section class="pb-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <!-- Tailwind CSS Columns for Masonry -->
+            <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4" id="portfolio-grid">
+
+                <!-- Work Item 1 (Thumb - Horizontal) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/01.png" alt="Thumbnail"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200"
+                            onerror="this.src='https://placehold.co/600x337/e2e8f0/64748b?text=サムネイル1'">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'ビジネス系チャンネル', '信頼性担保のため青を基調としつつ、補色の黄色で視線誘導。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none delay-100">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 2 (Shorts - Vertical) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item movie masonry-item">
+                    <div class="thumbnail-container relative bg-gray-800">
+                        <video src="images/movies/003.mp4"
+                            class="thumbnail-img w-full h-auto aspect-[9/16] object-cover opacity-90" muted autoplay
+                            loop playsinline
+                            onerror="this.outerHTML='<img src=\'https://placehold.co/400x711/1e293b/94a3b8?text=ショート動画\' class=\'thumbnail-img w-full h-auto aspect-[9/16] object-cover\'>'"></video>
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('video', 'images/movies/003.mp4', '切り抜きショート', '無音でも内容が伝わるフルテロップと、0.5秒ごとのカット割り。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none delay-100">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 3 (Thumb - Horizontal) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/02.png" alt="Thumbnail"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200"
+                            onerror="this.src='https://placehold.co/600x337/e2e8f0/64748b?text=サムネイル2'">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'エンタメ系サムネイル', 'スマホ表示でも文字が潰れないよう、極太ゴシック＋二重境界線を採用。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none delay-100">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 4 (Design - Square) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/common/aikon2.png" alt="Icon Design"
+                            class="thumbnail-img w-full h-auto object-cover aspect-square bg-gray-200"
+                            onerror="this.src='https://placehold.co/500x500/e2e8f0/64748b?text=アイコンデザイン'">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'SNSアイコン作成', '親しみやすさとプロ感を両立する鮮やかな配色。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none delay-100">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 5 (Design) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/coconara service01.png" alt="Service Design"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'ココナラサービス画像', 'サービス内容が一目で伝わるように情報を整理したデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 6 (Thumb - 03) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/03.png" alt="Thumbnail 03"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'サムネイル制作実績', 'ターゲット層に合わせたキャッチコピーと配色。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 7 (Thumb - kankopi1) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/kankopi1.png" alt="完コピ サムネイル1"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '有名チャンネル完コピ実績1', '人気チャンネルの構図やフォント選びを徹底的に分析・再現したサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 8 (Thumb - kankopi2) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/kankopi2.png" alt="完コピ サムネイル2"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '有名チャンネル完コピ実績2', '人気チャンネルの構図やフォント選びを徹底的に分析・再現したサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 9 (Thumb - kankopi3) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/kankopi3.png" alt="完コピ サムネイル3"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '有名チャンネル完コピ実績3', '人気チャンネルの構図やフォント選びを徹底的に分析・再現したサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 10 (Thumb - kankopi4) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/kankopi4.png" alt="完コピ サムネイル4"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '有名チャンネル完コピ実績4', '人気チャンネルの構図やフォント選びを徹底的に分析・再現したサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 11 (Thumb - kankopi5) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/kankopi5.png" alt="完コピ サムネイル5"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '有名チャンネル完コピ実績5', '人気チャンネルの構図やフォント選びを徹底的に分析・再現したサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Item 12 (Thumb - kankopi6) -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/kankopi6.png" alt="完コピ サムネイル6"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '有名チャンネル完コピ実績6', '人気チャンネルの構図やフォント選びを徹底的に分析・再現したサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vogue風ポートレート #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/vogue01.png" alt="Vogue風ポートレート #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風ポートレート #1', 'ハイファッション誌のような洗練されたレイアウトと大胆な色使いで、プレミアム感を演出。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風ポートレート #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/vogue02.png" alt="Vogue風ポートレート #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風ポートレート #2', 'モノトーンベースに差し色を効かせた、ミニマルかつインパクトのあるデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風ポートレート #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/vogue03.png" alt="Vogue風ポートレート #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風ポートレート #3', 'グラフィカルなタイポグラフィと人物の配置で、雑誌表紙のような完成度を実現。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue101.jpg" alt="Vogue風デザイン #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #1', 'ファッション誌のエディトリアルを意識したレイアウト設計。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue102.jpg" alt="Vogue風デザイン #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #2', '大胆なクロップと余白のバランスで視線を誘導するデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue103.png" alt="Vogue風デザイン #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #3', 'テクスチャと光の表現で奥行き感のある仕上がり。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue104.jpg" alt="Vogue風デザイン #4"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #4', 'コントラストの強い配色でブランド感を強調。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #5 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue105.jpg" alt="Vogue風デザイン #5"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #5', 'シンメトリー構図で安定感と高級感を両立。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #6 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue106.jpg" alt="Vogue風デザイン #6"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #6', 'ダイナミックな構図で躍動感のあるファッションビジュアル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #7 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue107.jpg" alt="Vogue風デザイン #7"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #7', 'カラーブロッキングを活かしたモダンなレイアウト。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #8 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue108.jpg" alt="Vogue風デザイン #8"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #8', '繊細なグラデーションで柔らかさとエレガンスを表現。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #9 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue109.jpg" alt="Vogue風デザイン #9"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #9', 'ダークトーンで統一した大人の雰囲気を持つデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #10 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue110.jpg" alt="Vogue風デザイン #10"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #10', '写真とグラフィック要素を融合させたアーティスティックな仕上がり。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #11 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue111.jpg" alt="Vogue風デザイン #11"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #11', 'ミニマルな要素で最大限のインパクトを生み出すデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vogue風デザイン #12 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/Vogue112.jpg" alt="Vogue風デザイン #12"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'Vogue風デザイン #12', '色彩の対比とレイヤー表現で立体感のある完成度。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール デザイン #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/flan01.png" alt="フランドール デザイン #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール デザイン #1', '東方Projectキャラを活かした鮮やかな色彩のグラフィックデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール デザイン #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/flan02.png" alt="フランドール デザイン #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール デザイン #2', 'ダークファンタジーの世界観を色彩と光で表現したビジュアル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール デザイン #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/flan03.png" alt="フランドール デザイン #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール デザイン #3', 'キャラクターの魅力を最大限に引き出すレイアウトと演出。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール サムネイル #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/flan04.jpg" alt="フランドール サムネイル #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール サムネイル #1', 'インパクト重視の構図と文字組みでクリック率を狙うサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール デザイン #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/flan05.png" alt="フランドール デザイン #4"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール デザイン #4', '幻想的な雰囲気と情報伝達を両立させたデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール デザイン #5 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/flan06.jpg" alt="フランドール デザイン #5"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール デザイン #5', 'カラーパレットにこだわった統一感のあるビジュアル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール サムネイル #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/flan07.png" alt="フランドール サムネイル #2"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール サムネイル #2', '視認性を重視した太字テキストと背景の組み合わせ。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール サムネイル #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/flan08.png" alt="フランドール サムネイル #3"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール サムネイル #3', 'コントラスト強調で小さい画面でも目を引くデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- フランドール サムネイル #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/flan09.png" alt="フランドール サムネイル #4"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'フランドール サムネイル #4', 'シリーズ感を意識した統一されたデザインテンプレート。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク デザイン #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/miku01.png" alt="初音ミク デザイン #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク デザイン #1', 'サイバーポップな世界観を表現したグラフィック。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク デザイン #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/miku02.png" alt="初音ミク デザイン #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク デザイン #2', 'ネオンカラーとデジタルテクスチャの融合。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク デザイン #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/miku03.png" alt="初音ミク デザイン #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク デザイン #3', 'キャラクターとタイポグラフィの調和を追求したデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク サムネイル -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/miku04.jpg" alt="初音ミク サムネイル"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク サムネイル', 'ボカロファン層に刺さるビビッドな配色と構図。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク デザイン #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/miku05.png" alt="初音ミク デザイン #4"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク デザイン #4', '近未来的なエフェクトで技術感を演出。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク デザイン #5 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/miku06.png" alt="初音ミク デザイン #5"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク デザイン #5', '透明感のある色使いでミクの世界観を再現。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 初音ミク デザイン #6 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/miku07.png" alt="初音ミク デザイン #6"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '初音ミク デザイン #6', '音楽的要素をビジュアルに落とし込んだグラフィック。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 サムネイル #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/reimu01.jpg" alt="霊夢 サムネイル #1"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 サムネイル #1', '和風テイストを活かした視認性の高いサムネイルデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 サムネイル #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/reimu02.jpg" alt="霊夢 サムネイル #2"
+                            class="thumbnail-img w-full h-auto object-cover aspect-video bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 サムネイル #2', '赤と白のカラーリングでキャラクター性を強調。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 サムネイル #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/thumbnails/reimu03.jpg" alt="霊夢 サムネイル #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 サムネイル #3', '動きのある構図で視聴者の興味を引くサムネイル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 ゴールドバナー #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu goldbanner01.jpg" alt="霊夢 ゴールドバナー #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 ゴールドバナー #1', 'ゴールドアクセントで高級感を出したバナーデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 ゴールドバナー #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu goldbanner02.jpg" alt="霊夢 ゴールドバナー #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 ゴールドバナー #2', '和の要素とゴールドを融合させたプレミアムデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 ゴールドバナー #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu goldbanner03.jpg" alt="霊夢 ゴールドバナー #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 ゴールドバナー #3', 'テキストとビジュアルのバランスが取れたバナー構成。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 ゴールドバナー #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu goldbanner04.jpg" alt="霊夢 ゴールドバナー #4"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 ゴールドバナー #4', '装飾的なフレームとキャラクターの組み合わせ。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 ゴールドバナー #5 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu goldbanner05.jpg" alt="霊夢 ゴールドバナー #5"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 ゴールドバナー #5', 'シリーズ感を保ちつつバリエーションを展開。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 インフォグラフィック -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu info gfx.png" alt="霊夢 インフォグラフィック"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 インフォグラフィック', '情報をビジュアル化し直感的に伝えるデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 情報デザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu info01.jpg" alt="霊夢 情報デザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 情報デザイン', 'データとキャラクターを組み合わせた情報伝達デザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 ポスターデザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu poster01.jpg" alt="霊夢 ポスターデザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 ポスターデザイン', '大型印刷にも耐える高解像度のポスターレイアウト。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 霊夢 浮世絵風デザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/reimu ukiyoe.jpg" alt="霊夢 浮世絵風デザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, '霊夢 浮世絵風デザイン', '日本の伝統芸術・浮世絵のスタイルを現代デザインに昇華。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト GFXデザイン #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto gfx01.jpg" alt="テト GFXデザイン #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト GFXデザイン #1', 'モーショングラフィックスを意識したダイナミックなビジュアル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト GFXデザイン #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto gfx02.jpg" alt="テト GFXデザイン #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト GFXデザイン #2', 'パーティクルエフェクトとキャラクターの融合デザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト GFXデザイン #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto gfx03.jpg" alt="テト GFXデザイン #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト GFXデザイン #3', '光と影のコントラストで立体感のあるGFX表現。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ゴールドデザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto gold01.jpg" alt="テト ゴールドデザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ゴールドデザイン', 'ゴールドの質感表現にこだわったラグジュアリーデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト インフォグラフィック #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto info01.jpg" alt="テト インフォグラフィック #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト インフォグラフィック #1', 'キャラクター情報を整理して見やすくレイアウト。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト インフォグラフィック #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto info02.jpg" alt="テト インフォグラフィック #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト インフォグラフィック #2', '色分けとアイコンで情報の階層を明確に表現。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト インフォグラフィック #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto info03.jpg" alt="テト インフォグラフィック #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト インフォグラフィック #3', 'コンパクトに情報を集約したカード型デザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト インフォグラフィック #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto info04.jpg" alt="テト インフォグラフィック #4"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト インフォグラフィック #4', '視覚的リズムを意識した情報レイアウト。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト インフォグラフィック #5 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto info05.jpg" alt="テト インフォグラフィック #5"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト インフォグラフィック #5', '統一感のあるデザインシステムで情報を整理。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ナイトデザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto night.jpg" alt="テト ナイトデザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ナイトデザイン', '夜景をテーマにしたムーディーな雰囲気のビジュアル。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #1 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster01.jpg" alt="テト ポスター #1"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #1', '印象的なキャッチコピーとビジュアルの組み合わせ。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #2 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster02.jpg" alt="テト ポスター #2"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #2', 'ミニマルな構成で伝えたいメッセージを強調。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #3 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster03.jpg" alt="テト ポスター #3"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #3', '色彩理論に基づいたカラーパレットの選定。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #4 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster04.jpg" alt="テト ポスター #4"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #4', 'グリッドシステムを活用した正確なレイアウト。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #5 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster05.jpg" alt="テト ポスター #5"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #5', 'フォントの選定と組み合わせにこだわったタイポデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #6 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster06.jpg" alt="テト ポスター #6"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #6', '余白を活かしたエレガントなポスター構成。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト ポスター #7 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto poster07.jpg" alt="テト ポスター #7"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト ポスター #7', '大胆なレイアウトでインパクトを最大化。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- テト レゲエ風デザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/teto reggae01.jpg" alt="テト レゲエ風デザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'テト レゲエ風デザイン', 'レゲエカルチャーの色彩とリズム感を取り入れたデザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- オグリキャップ デザイン -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item design masonry-item">
+                    <div class="thumbnail-container relative">
+                        <img src="images/designs/oguri.png" alt="オグリキャップ デザイン"
+                            class="thumbnail-img w-full h-auto object-cover bg-gray-200">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', this.previousElementSibling.src, 'オグリキャップ デザイン', '人気キャラクターの魅力を引き出すファンアート風デザイン。')">
+                            <span
+                                class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-xs pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- モーダル -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-media"></div>
+            <div class="modal-info" id="modal-info">
+                <h4 id="modal-title" class="text-lg"></h4>
+                <p id="modal-desc" class="text-sm mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-8 text-center text-sub text-sm border-t border-gray-200 glass relative z-10">
+        <p>&copy; 2026 ELth. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // テーマ切り替え機能
+        function setTheme(themeName) {
+            if (themeName === 'blue') {
+                document.body.removeAttribute('data-theme');
+            } else {
+                document.body.setAttribute('data-theme', themeName);
+            }
+        }
+
+        // フィルタリング機能 (Masonryレイアウト対応)
+        function filterWorks(category) {
+            const items = document.querySelectorAll('.work-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                    item.style.animation = 'none';
+                    item.offsetHeight; /* trigger reflow */
+                    item.style.animation = null;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // モーダル機能
+        function openModal(type, src, title, desc) {
+            const modal = document.getElementById('modal');
+            const mediaContainer = document.getElementById('modal-media');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDesc = document.getElementById('modal-desc');
+
+            mediaContainer.innerHTML = '';
+
+            if (type === 'video') {
+                const video = document.createElement('video');
+                video.src = src;
+                video.controls = true;
+                video.autoplay = true;
+                video.style.maxWidth = '90vw';
+                video.style.maxHeight = '80vh';
+                video.style.objectFit = 'contain';
+                video.classList.add('w-full');
+                mediaContainer.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = title;
+                img.style.maxHeight = '80vh';
+                img.style.objectFit = 'contain';
+                img.classList.add('w-full');
+                mediaContainer.appendChild(img);
+            }
+
+            modalTitle.textContent = title;
+            modalDesc.textContent = '● 意図: ' + desc;
+
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+
+            const video = modal.querySelector('video');
+            if (video) video.pause();
+
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('modal-media').innerHTML = '';
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        // ESCキーでモーダルを閉じる
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+
+</html>

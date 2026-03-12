@@ -83,6 +83,10 @@
             color: var(--text-main);
             overflow-x: hidden;
             letter-spacing: 0.05em;
+            word-break: keep-all;
+            /* 日本語の単語の途中での改行を防ぐ */
+            overflow-wrap: break-word;
+            /* 枠からはみ出る長い英単語などは折り返す */
             transition: background-color 0.5s ease, color 0.5s ease;
         }
 
@@ -172,6 +176,7 @@
             color: white;
             border-color: var(--accent-color);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         /* ココナラ用ボタンカラー */
@@ -238,12 +243,12 @@
 
         .modal-close {
             position: absolute;
-            top: -40px;
-            right: 0;
+            top: 15px;
+            right: 15px;
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.4);
             border: none;
             width: 36px;
             height: 36px;
@@ -252,6 +257,7 @@
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
+            z-index: 250;
         }
 
         .modal-close:hover {
@@ -301,6 +307,20 @@
             gap: 10px;
         }
 
+        @media (max-width: 768px) {
+            .theme-switcher {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                flex-direction: row;
+            }
+
+            .theme-btn {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
         .theme-btn {
             width: 40px;
             height: 40px;
@@ -333,16 +353,29 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass border-b-0">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-black tracking-tighter text-accent">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center relative">
+            <a href="#" class="text-2xl font-black tracking-tighter text-accent relative z-50">
                 ELth.
             </a>
+            <!-- Desktop Nav -->
             <div class="space-x-6 text-sm font-bold hidden md:block">
                 <a href="#about" class="hover:text-accent transition">プロフィール</a>
                 <a href="#services" class="hover:text-accent transition">サービス</a>
                 <a href="#works" class="hover:text-accent transition">制作実績</a>
                 <a href="#contact" class="hover:text-accent transition">お問い合わせ</a>
             </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-main focus:outline-none relative z-50">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-white/95 backdrop-blur-md z-40 hidden flex-col items-center justify-center space-y-8 text-xl font-bold md:hidden transition-all duration-300">
+            <a href="#about" class="mobile-link text-main hover:text-accent transition">プロフィール</a>
+            <a href="#services" class="mobile-link text-main hover:text-accent transition">サービス</a>
+            <a href="#works" class="mobile-link text-main hover:text-accent transition">制作実績</a>
+            <a href="#contact" class="mobile-link text-main hover:text-accent transition">お問い合わせ</a>
         </div>
     </nav>
 
@@ -353,7 +386,7 @@
                 class="glass inline-block px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-6 text-accent border border-current">
                 現役動画ディレクター / SNSデザイナー
             </div>
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
+            <h1 class="font-black mb-6 leading-tight tracking-tight text-[clamp(2.5rem,6vw+1rem,4.5rem)]">
                 Z世代の視点で<br>
                 <span class="text-accent">「クリックされる」をデザインする。</span>
             </h1>
@@ -380,7 +413,7 @@
                     <!-- アイコン -->
                     <div
                         class="hidden md:flex flex-shrink-0 w-24 h-24 rounded-full overflow-hidden shadow-lg mb-6 md:mb-0">
-                        <img src="images/aikon2.png" alt="ELth アイコン" class="w-full h-full object-cover">
+                        <img src="images/common/aikon2.png" alt="ELth アイコン" class="w-full h-full object-cover">
                     </div>
 
                     <div>
@@ -486,9 +519,10 @@
                 <!-- Work Item 1 -->
                 <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb">
                     <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/01.png" alt="Thumbnail" class="thumbnail-img w-full h-full object-cover">
+                        <img src="images/thumbnails/01.png" alt="Thumbnail"
+                            class="thumbnail-img w-full h-full object-cover">
                         <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/01.png', 'ビジネス系チャンネル', '信頼性担保のため青を基調としつつ、補色の黄色で視線誘導。')">
+                            onclick="openModal('image', 'images/thumbnails/01.png', 'ビジネス系チャンネル', '信頼性担保のため青を基調としつつ、補色の黄色で視線誘導。')">
                             <span
                                 class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
                         </div>
@@ -507,9 +541,10 @@
                 <!-- Work Item 2 -->
                 <div class="glass glass-card rounded-xl overflow-hidden group work-item thumb">
                     <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/02.png" alt="Thumbnail" class="thumbnail-img w-full h-full object-cover">
+                        <img src="images/thumbnails/02.png" alt="Thumbnail"
+                            class="thumbnail-img w-full h-full object-cover">
                         <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/02.png', 'ビジネス系チャンネル', 'スマホ表示でも文字が潰れないよう、極太ゴシック＋二重境界線を採用。')">
+                            onclick="openModal('image', 'images/thumbnails/02.png', 'ビジネス系チャンネル', 'スマホ表示でも文字が潰れないよう、極太ゴシック＋二重境界線を採用。')">
                             <span
                                 class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
                         </div>
@@ -529,10 +564,10 @@
                 <div class="glass glass-card rounded-xl overflow-hidden group work-item movie">
                     <div
                         class="thumbnail-container relative aspect-[9/16] bg-gray-800 flex items-center justify-center">
-                        <video src="images/003.mp4" class="thumbnail-img w-full h-full object-cover opacity-90" muted
-                            autoplay loop playsinline></video>
+                        <video src="images/movies/003.mp4" class="thumbnail-img w-full h-full object-cover opacity-90"
+                            muted autoplay loop playsinline></video>
                         <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('video', 'images/003.mp4', '切り抜きショート', '無音でも内容が伝わるフルテロップと、0.5秒ごとのカット割り。')">
+                            onclick="openModal('video', 'images/movies/003.mp4', '切り抜きショート', '無音でも内容が伝わるフルテロップと、0.5秒ごとのカット割り。')">
                             <span
                                 class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
                         </div>
@@ -548,6 +583,14 @@
                         </p>
                     </div>
                 </div>
+            </div>
+
+            <!-- Gallery Link -->
+            <div class="mt-16 text-center">
+                <a href="gallery.html"
+                    class="glass-btn inline-flex items-center justify-center px-10 py-4 rounded-full font-bold text-lg hover:-translate-y-1 transition duration-300 shadow-md">
+                    <i class="fa-solid fa-layer-group mr-3"></i>全実績・素材集を見る
+                </a>
             </div>
         </div>
     </section>
@@ -692,6 +735,39 @@
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeModal();
         });
+
+        // モバイルナビゲーション
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+
+                // アイコンの切り替え
+                const icon = mobileBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            });
+
+            // リンククリックでメニューを閉じる
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    const icon = mobileBtn.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
     </script>
 </body>
 
