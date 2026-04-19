@@ -571,15 +571,269 @@
                 <button class="filter-btn glass-btn active px-6 py-2 rounded-full text-sm font-bold"
                     onclick="filterWorks('all')">すべて表示</button>
                 <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
-                    onclick="filterWorks('business')">ビジネス系</button>
-                <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
                     onclick="filterWorks('vtuber')">VTuber系</button>
+                <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
+                    onclick="filterWorks('business')">ビジネス系</button>
                 <button class="filter-btn glass-btn px-6 py-2 rounded-full text-sm font-bold"
                     onclick="filterWorks('movie')">ショート動画</button>
             </div>
 
             <!-- Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+
+                <!-- ===== VTuber系 ===== -->
+
+                <!-- 1. 重大発表（一番上） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/01.webp" alt="重大発表サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/01.webp', '重大発表サムネ', 'シンプルな「重大発表」で期待と不安を同時に煽る。キャラの驚き顔でクリック衝動を引き出す設計。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">重大発表サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> シンプルな「重大発表」で期待と不安を同時に煽る。キャラの驚き顔でクリック衝動を引き出す設計。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. 降臨フリートーク（上） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/007.webp" alt="降臨フリートークサムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/007.webp', '降臨フリートークサムネ', '暗背景×立入禁止テープのダーク演出で世界観を構築。「降臨」の大げさな言葉でイベント感を最大化。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">降臨フリートークサムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 暗背景×立入禁止テープのダーク演出で世界観を構築。「降臨」の大げさな言葉でイベント感を最大化。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. Phasmophobia 深夜コラボ -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/014.webp" alt="Phasmophobia 深夜コラボサムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/014.webp', 'Phasmophobia 深夜コラボサムネ', '血飛沫×ホラーフォントで深夜の緊張感を最大化。3人のリアクション顔でコラボのわちゃわちゃ感も同時に伝える設計。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">Phasmophobia 深夜コラボサムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 血飛沫×ホラーフォントで深夜の緊張感を最大化。3人のリアクション顔でコラボのわちゃわちゃ感も同時に伝える設計。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. 1周年記念雑談配信 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/013.webp" alt="1周年記念雑談配信サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/013.webp', '1周年記念雑談配信サムネ', 'ゴールドの筆文字×感動表情で周年の重みを演出。「First Anniversary」の英字がブランド感をプラス。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">1周年記念雑談配信サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> ゴールドの筆文字×感動表情で周年の重みを演出。「First Anniversary」の英字がブランド感をプラス。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. ELDEN RING 完全初見 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/012.webp" alt="ELDEN RING 完全初見サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/012.webp', 'ELDEN RING 完全初見サムネ', 'ゲーム実況×リアクション顔芸の王道構図。「死にまくってる件」の自虐テキストで共感と笑いを同時に誘発。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">ELDEN RING 完全初見サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> ゲーム実況×リアクション顔芸の王道構図。「死にまくってる件」の自虐テキストで共感と笑いを同時に誘発。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6. 3Dライブ 1周年生誕祭 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/010.webp" alt="3Dライブ 1周年生誕祭サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/010.webp', '3Dライブ 1周年生誕祭サムネ', 'パステル紫×ピクセルハートで可愛さと祝祭感を両立。「3D」の立体文字でイベントの特別感を最大化。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">3Dライブ 1周年生誕祭サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> パステル紫×ピクセルハートで可愛さと祝祭感を両立。「3D」の立体文字でイベントの特別感を最大化。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 7. 歌枠初配信 -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/011.webp" alt="歌枠初配信サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/011.webp', '歌枠初配信サムネ', '深夜ブルー×巨大文字で「歌枠」感を全面に。日付明示と「初配信」で記念感とクリック衝動を引き出す設計。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">歌枠初配信サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 深夜ブルー×巨大文字で「歌枠」感を全面に。日付明示と「初配信」で記念感とクリック衝動を引き出す設計。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 8. 質問コーナー（中盤） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/003.webp" alt="質問コーナーサムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/003.webp', '質問コーナーサムネ', '墨書き風の力強い文字で「本気感」を演出。ポップなキャラと重厚なテキストのギャップがクリックを誘発。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">質問コーナーサムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 墨書き風の力強い文字で「本気感」を演出。ポップなキャラと重厚なテキストのギャップがクリックを誘発。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. 1周年LIVE（中盤） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/004.webp" alt="1周年LIVEサムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/004.webp', '1周年LIVEサムネ', '節目感と感謝メッセージで既存リスナーの感情を刺激。青×白のクリーンな配色でお祝い感を強調。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">1周年LIVEサムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 節目感と感謝メッセージで既存リスナーの感情を刺激。青×白のクリーンな配色でお祝い感を強調。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. サムネチャレンジ（中盤） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/006.webp" alt="サムネチャレンジ告知"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/006.webp', 'サムネチャレンジ告知', '大きな「毎回」文字とオレンジで習慣視聴を促す。日時の明示でリマインド効果を狙った設計。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">サムネチャレンジ告知</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 大きな「毎回」文字とオレンジで習慣視聴を促す。日時の明示でリマインド効果を狙った設計。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6. 歌枠（下） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/002.webp" alt="歌枠サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/002.webp', '歌枠サムネ', '青×黄の鮮やかな配色でエンタメ感を表現。「歌枠」の大文字で内容を一目で伝えCTRを向上。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">歌枠サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> 青×黄の鮮やかな配色でエンタメ感を表現。「歌枠」の大文字で内容を一目で伝えCTRを向上。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 7. 雑談配信（下） -->
+                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
+                    <div class="thumbnail-container relative aspect-video bg-gray-200">
+                        <img src="images/thumbnails/vtuber/01.1.webp" alt="雑談配信サムネ"
+                            class="thumbnail-img w-full h-full object-cover">
+                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
+                            onclick="openModal('image', 'images/thumbnails/vtuber/01.1.webp', '雑談配信サムネ', 'キラキラと温かい配色で「入りやすさ」を演出。初見歓迎の明示で新規リスナーへの敷居を下げる設計。')">
+                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold">雑談配信サムネ</h4>
+                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
+                        </div>
+                        <p class="text-sm text-sub leading-relaxed">
+                            <span class="text-accent font-bold">● 意図:</span> キラキラと温かい配色で「入りやすさ」を演出。初見歓迎の明示で新規リスナーへの敷居を下げる設計。
+                        </p>
+                    </div>
+                </div>
 
                 <!-- ===== ビジネス系 ===== -->
 
@@ -759,155 +1013,6 @@
                         </div>
                         <p class="text-sm text-sub leading-relaxed">
                             <span class="text-accent font-bold">● 意図:</span> 「搾取×TOP5」で社会不満と好奇心を同時刺激。赤×お金エフェクトで視覚的インパクトを最大化。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- ===== VTuber系 ===== -->
-
-                <!-- 1. 重大発表（一番上） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/01.webp" alt="重大発表サムネ"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/01.webp', '重大発表サムネ', 'シンプルな「重大発表」で期待と不安を同時に煽る。キャラの驚き顔でクリック衝動を引き出す設計。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">重大発表サムネ</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> シンプルな「重大発表」で期待と不安を同時に煽る。キャラの驚き顔でクリック衝動を引き出す設計。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 2. 降臨フリートーク（上） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/007.webp" alt="降臨フリートークサムネ"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/007.webp', '降臨フリートークサムネ', '暗背景×立入禁止テープのダーク演出で世界観を構築。「降臨」の大げさな言葉でイベント感を最大化。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">降臨フリートークサムネ</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> 暗背景×立入禁止テープのダーク演出で世界観を構築。「降臨」の大げさな言葉でイベント感を最大化。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 3. 質問コーナー（中盤） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/003.webp" alt="質問コーナーサムネ"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/003.webp', '質問コーナーサムネ', '墨書き風の力強い文字で「本気感」を演出。ポップなキャラと重厚なテキストのギャップがクリックを誘発。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">質問コーナーサムネ</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> 墨書き風の力強い文字で「本気感」を演出。ポップなキャラと重厚なテキストのギャップがクリックを誘発。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 4. 1周年LIVE（中盤） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/004.webp" alt="1周年LIVEサムネ"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/004.webp', '1周年LIVEサムネ', '節目感と感謝メッセージで既存リスナーの感情を刺激。青×白のクリーンな配色でお祝い感を強調。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">1周年LIVEサムネ</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> 節目感と感謝メッセージで既存リスナーの感情を刺激。青×白のクリーンな配色でお祝い感を強調。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 5. サムネチャレンジ（中盤） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/006.webp" alt="サムネチャレンジ告知"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/006.webp', 'サムネチャレンジ告知', '大きな「毎回」文字とオレンジで習慣視聴を促す。日時の明示でリマインド効果を狙った設計。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">サムネチャレンジ告知</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> 大きな「毎回」文字とオレンジで習慣視聴を促す。日時の明示でリマインド効果を狙った設計。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 6. 歌枠（下） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/002.webp" alt="歌枠サムネ"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/002.webp', '歌枠サムネ', '青×黄の鮮やかな配色でエンタメ感を表現。「歌枠」の大文字で内容を一目で伝えCTRを向上。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">歌枠サムネ</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> 青×黄の鮮やかな配色でエンタメ感を表現。「歌枠」の大文字で内容を一目で伝えCTRを向上。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 7. 雑談配信（下） -->
-                <div class="glass glass-card rounded-xl overflow-hidden group work-item vtuber">
-                    <div class="thumbnail-container relative aspect-video bg-gray-200">
-                        <img src="images/thumbnails/vtuber/01.1.webp" alt="雑談配信サムネ"
-                            class="thumbnail-img w-full h-full object-cover">
-                        <div class="work-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 backdrop-blur-sm"
-                            onclick="openModal('image', 'images/thumbnails/vtuber/01.1.webp', '雑談配信サムネ', 'キラキラと温かい配色で「入りやすさ」を演出。初見歓迎の明示で新規リスナーへの敷居を下げる設計。')">
-                            <span class="text-white font-bold border border-white/80 px-4 py-2 rounded-full text-sm pointer-events-none">詳細を見る</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold">雑談配信サムネ</h4>
-                            <span class="text-xs bg-purple-500/10 text-purple-600 px-2 py-1 rounded font-bold">VTuber</span>
-                        </div>
-                        <p class="text-sm text-sub leading-relaxed">
-                            <span class="text-accent font-bold">● 意図:</span> キラキラと温かい配色で「入りやすさ」を演出。初見歓迎の明示で新規リスナーへの敷居を下げる設計。
                         </p>
                     </div>
                 </div>
